@@ -7,7 +7,7 @@ from distutils.core import setup
 
 setup(
     name='rloginclient',
-    version='1.0.0',
+    version='1.0.1',
     description='Rlogin客户端',
     author='Zhang Yechong',
     author_email='641878711@qq.com',
