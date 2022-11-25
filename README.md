@@ -9,12 +9,15 @@
 ##### 安装
 
 ```
-pip install RloginClient
+pip install rloginclient
 ```
 
 ##### 例子
 
 ```
+from rlogin.rlogin_client import RloginClient
+
+
 #连接客户端
 rlogin_cli = RloginClient(clientUsername='clientUsername',
                               serverUsername='serverUsername',
