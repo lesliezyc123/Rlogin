@@ -15,6 +15,9 @@ pip install RloginClient
 ##### 例子
 
 ```
+from rlogin.rlogin_client import RloginClient
+
+
 #连接客户端
 rlogin_cli = RloginClient(clientUsername='clientUsername',
                               serverUsername='serverUsername',
