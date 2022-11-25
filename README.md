@@ -9,7 +9,7 @@
 ##### 安装
 
 ```
-pip install RloginClient
+pip install rloginclient
 ```
 
 ##### 例子
