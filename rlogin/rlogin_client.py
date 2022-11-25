@@ -3,13 +3,17 @@
 # Author:zhang yechong
 # Emial:641878711@qq.com
 
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+# Author:zhang yechong
+# Emial:641878711@qq.com
+
 import time
 import socket
-from socket import htons
 from socket import error as SocketError
 import errno
 from functools import wraps
-from loguru import logger
+from apps import logger
 
 FLUSHREAD = 0x01
 START = 0x08
@@ -127,11 +131,12 @@ class RloginClient:
         self.sock.sendall(data.encode('utf-8'), flags)
 
     @open_only
-    def connect(self,host,port=513):
+    def connect(self,host,port=513,rows=41,columns=95,pixelsX=760,pixelsY=656):
         """
         连接到目标主机
         :param host:目标主机ip地址
         :param port:目标主机端口默认513
+        rows=41,columns=95,pixelsX=760,pixelsY=656 窗口大小
         :return:
         """
         self._get_socket(host,port)
@@ -149,7 +154,10 @@ class RloginClient:
             self.close()
             self._debug(f"rlogin登录失败")
             raise RloginException("rlogin登录失败")
-
+        self.rows = rows
+        self.columns = columns
+        self.pixelsX = pixelsX
+        self.pixelsY = pixelsY
         self._auto_login()
 
 
@@ -161,7 +169,7 @@ class RloginClient:
             res_01 = self.sock.recv(bufsize,1)
             self._debug(f"flags=1，收到消息：{res_01}")
             if res_01 == b'\x80':
-                self.send_win_size()
+                self.send_win_size(rows=self.rows,columns=self.columns,pixelsX=self.pixelsX,pixelsY=self.pixelsY)
         except SocketError as e:
             if e.errno != errno.EWOULDBLOCK:
                 self._debug(e, type=2)
@@ -195,10 +203,10 @@ class RloginClient:
         #修改屏幕大小
         b = b'\xff' + b'\xff' + 'ss'.encode('ASCII')
 
-        cy = rows.to_bytes(2,'big')
-        cx = columns.to_bytes(2,'big')
-        sx = pixelsX.to_bytes(2,'big')
-        sy = pixelsY.to_bytes(2,'big')
+        cy = rows.to_bytes(2, 'big')
+        cx = columns.to_bytes(2, 'big')
+        sx = pixelsX.to_bytes(2, 'big')
+        sy = pixelsY.to_bytes(2, 'big')
 
         b += cy
         b += cx
@@ -246,6 +254,6 @@ if __name__ == "__main__":
                               terminalType="xterm",
                               terminalSpeed=9600)
     # rlogin_cli.set_debug()  #需要debug则打开
-    rlogin_cli.connect(host="xxx.xxx.xxx.xxx", port=513)
+    rlogin_cli.connect(host="xxx.xxx.xxx.xxx", port=513,rows=41,columns=95,pixelsX=760,pixelsY=656)
 
 
