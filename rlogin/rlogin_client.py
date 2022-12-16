@@ -111,7 +111,7 @@ class RloginClient:
                 break
             except SocketError as e:
                 self._debug(e, type=2)
-                if e.errno == errno.WSAEADDRINUSE:
+                if e.errno:
                     # 端口被占用则端口号减一
                     self.LocalPort -= 1
                     if self.LocalPort==513:
