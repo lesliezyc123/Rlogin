@@ -3,11 +3,6 @@
 # Author:zhang yechong
 # Emial:641878711@qq.com
 
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
-# Author:zhang yechong
-# Emial:641878711@qq.com
-
 import time
 import socket
 from socket import error as SocketError
