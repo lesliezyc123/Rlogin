@@ -30,7 +30,7 @@ WINDOW = 0x80
 
 class RloginException(Exception):
     """
-    Exception raised by failures in SSH2 protocol negotiation or logic errors.
+    Exception raised by failures in Rlogin protocol negotiation or logic errors.
     """
 
     pass
